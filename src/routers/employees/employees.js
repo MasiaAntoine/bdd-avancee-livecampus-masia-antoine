@@ -45,7 +45,7 @@ router.post("/create/", async (req, res) => {
   if (newEmployee) {
     res.status(201).json(newEmployee);
   } else {
-    res.status(500).send("Erreur lors de l'ajout de l'employé.");
+    res.status(500).send("Erreur lors de la création de l'employé.");
   }
 });
 
@@ -55,7 +55,7 @@ router.delete("/delete/:id", async (req, res) => {
   if (deletedEmployee) {
     res.json(deletedEmployee);
   } else {
-    res.status(404).send("Employé non trouvé.");
+    res.status(500).send("Erreur lors de la suppression de l'employé.");
   }
 });
 
