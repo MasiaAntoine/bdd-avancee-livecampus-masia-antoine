@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 
-router.get("/get/", async (req, res) => {
+router.get("/all/", async (req, res) => {
   const services = await getAllServices();
   if (services) {
     res.json(services);
@@ -20,7 +20,7 @@ router.get("/get/", async (req, res) => {
   }
 });
 
-router.get("/get/:id", async (req, res) => {
+router.get("/recup/:id", async (req, res) => {
   const serviceId = req.params.id;
   const service = await getServiceById(serviceId);
   if (service) {
@@ -30,7 +30,7 @@ router.get("/get/:id", async (req, res) => {
   }
 });
 
-router.post("/get/", async (req, res) => {
+router.post("/create/", async (req, res) => {
   const { name, office_number } = req.body;
   const newService = await addService(name, office_number);
   if (newService) {
@@ -40,7 +40,7 @@ router.post("/get/", async (req, res) => {
   }
 });
 
-router.delete("/get/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const serviceId = req.params.id;
   const deletedService = await deleteService(serviceId);
   if (deletedService) {
@@ -50,7 +50,7 @@ router.delete("/get/:id", async (req, res) => {
   }
 });
 
-router.put("/get/:id", async (req, res) => {
+router.put("/edit/:id", async (req, res) => {
   const serviceId = req.params.id;
   const { name, office_number } = req.body;
   const updatedService = await updateService(serviceId, name, office_number);

@@ -6,7 +6,7 @@ import {
 
 const router = express.Router();
 
-router.get("/get/:serviceId", async (req, res) => {
+router.get("/recup/:serviceId", async (req, res) => {
   const serviceId = req.params.serviceId;
   const manager = await getManagerByServiceId(serviceId);
   if (manager) {

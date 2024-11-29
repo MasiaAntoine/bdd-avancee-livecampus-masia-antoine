@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.get("/get/", async (req, res) => {
+router.get("/all/", async (req, res) => {
   const employees = await getAllEmployees();
   if (employees) {
     res.json(employees);
@@ -19,7 +19,7 @@ router.get("/get/", async (req, res) => {
   }
 });
 
-router.get("/get/:id", async (req, res) => {
+router.get("/recup/:id", async (req, res) => {
   const employeeId = req.params.id;
   console.log(`Fetching employee with ID: ${employeeId}`);
 
@@ -33,7 +33,7 @@ router.get("/get/:id", async (req, res) => {
   }
 });
 
-router.post("/get/", async (req, res) => {
+router.post("/create/", async (req, res) => {
   const { first_name, last_name, email, salary, service_id } = req.body;
   const newEmployee = await addEmployee(
     first_name,
@@ -49,7 +49,7 @@ router.post("/get/", async (req, res) => {
   }
 });
 
-router.delete("/get/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const employeeId = req.params.id;
   const deletedEmployee = await deleteEmployee(employeeId);
   if (deletedEmployee) {
@@ -59,7 +59,7 @@ router.delete("/get/:id", async (req, res) => {
   }
 });
 
-router.put("/get/:id", async (req, res) => {
+router.put("/edit/:id", async (req, res) => {
   const employeeId = req.params.id;
   const { first_name, last_name, email, salary, service_id } = req.body;
   const updatedEmployee = await updateEmployee(
