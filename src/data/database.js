@@ -1,8 +1,10 @@
 // @ts-nocheck
 import pg from "pg";
-const { Pool } = pg;
 import dotenv from "dotenv";
 
+let isConnectionClosed = false;
+
+const { Pool } = pg;
 const envFile =
   process.env.NODE_ENV === "test"
     ? "./config/env/.env.test"
@@ -18,5 +20,8 @@ export const connexion = new Pool({
 });
 
 export const closeConnection = async () => {
-  if (connexion) return connexion.end();
+  if (connexion && !isConnectionClosed) {
+    isConnectionClosed = true;
+    return connexion.end();
+  }
 };
