@@ -2,6 +2,9 @@ import express from "express";
 import {
   getAllEmployees,
   getEmployeeById,
+  addEmployee,
+  deleteEmployee,
+  updateEmployee,
 } from "../../data/queries/employeesQueries.js";
 
 const router = express.Router();
@@ -26,6 +29,50 @@ router.get("/:id", async (req, res) => {
   } else {
     console.log(`Employee with ID: ${employeeId} not found.`);
     res.status(404).send("Employé non trouvé.");
+  }
+});
+
+router.post("/", async (req, res) => {
+  const { first_name, last_name, email, salary, service_id } = req.body;
+  const newEmployee = await addEmployee(
+    first_name,
+    last_name,
+    email,
+    salary,
+    service_id
+  );
+  if (newEmployee) {
+    res.status(201).json(newEmployee);
+  } else {
+    res.status(500).send("Erreur lors de l'ajout de l'employé.");
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  const employeeId = req.params.id;
+  const deletedEmployee = await deleteEmployee(employeeId);
+  if (deletedEmployee) {
+    res.json(deletedEmployee);
+  } else {
+    res.status(404).send("Employé non trouvé.");
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const employeeId = req.params.id;
+  const { first_name, last_name, email, salary, service_id } = req.body;
+  const updatedEmployee = await updateEmployee(
+    employeeId,
+    first_name,
+    last_name,
+    email,
+    salary,
+    service_id
+  );
+  if (updatedEmployee) {
+    res.json(updatedEmployee);
+  } else {
+    res.status(500).send("Erreur lors de la mise à jour de l'employé.");
   }
 });
 
