@@ -1,11 +1,15 @@
-import { getAllEmployees } from "../../data/database.js";
-
 import express from "express";
-const employeesRouter = express.Router();
+import { getAllEmployees } from "../../data/queries/employeesQueries.js";
 
-employeesRouter.get("/", async (req, res) => {
-  const allEmployees = await getAllEmployees();
-  res.send(allEmployees);
+const router = express.Router();
+
+router.get("/", async (req, res) => {
+  const employees = await getAllEmployees();
+  if (employees) {
+    res.json(employees);
+  } else {
+    res.status(500).send("Erreur lors de la récupération des employés.");
+  }
 });
 
-export default employeesRouter;
+export default router;
