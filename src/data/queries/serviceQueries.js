@@ -61,3 +61,27 @@ export const updateService = async (id, name, officeNumber) => {
     return null;
   }
 };
+
+export const employeeCountByService = async () => {
+  try {
+    const res = await connexion.query(
+      "SELECT * FROM employee_count_by_service()"
+    );
+    return res.rows;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const top5ServicesByPayroll = async () => {
+  try {
+    const res = await connexion.query(
+      "SELECT * FROM top_5_services_by_payroll()"
+    );
+    return res.rows;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

@@ -5,11 +5,12 @@ import {
   addEmployee,
   deleteEmployee,
   updateEmployee,
+  salaryGap,
 } from "../../data/queries/employeesQueries.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/get/", async (req, res) => {
   const employees = await getAllEmployees();
   if (employees) {
     res.json(employees);
@@ -18,7 +19,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/get/:id", async (req, res) => {
   const employeeId = req.params.id;
   console.log(`Fetching employee with ID: ${employeeId}`);
 
@@ -32,7 +33,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/get/", async (req, res) => {
   const { first_name, last_name, email, salary, service_id } = req.body;
   const newEmployee = await addEmployee(
     first_name,
@@ -48,7 +49,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/get/:id", async (req, res) => {
   const employeeId = req.params.id;
   const deletedEmployee = await deleteEmployee(employeeId);
   if (deletedEmployee) {
@@ -58,7 +59,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/get/:id", async (req, res) => {
   const employeeId = req.params.id;
   const { first_name, last_name, email, salary, service_id } = req.body;
   const updatedEmployee = await updateEmployee(
@@ -73,6 +74,15 @@ router.put("/:id", async (req, res) => {
     res.json(updatedEmployee);
   } else {
     res.status(500).send("Erreur lors de la mise à jour de l'employé.");
+  }
+});
+
+router.get("/salary-gap", async (req, res) => {
+  const result = await salaryGap();
+  if (result !== null) {
+    res.json({ salary_gap: result });
+  } else {
+    res.status(500).send("Erreur lors de la récupération de l'écart salarial.");
   }
 });
 

@@ -1,15 +1,27 @@
 import express from "express";
-import { getManageByServiceId } from "../../data/queries/manageQueries.js";
+import {
+  getManagerByServiceId,
+  listManagersAndServices,
+} from "../../data/queries/manageQueries.js";
 
 const router = express.Router();
 
-router.get("/:serviceId", async (req, res) => {
+router.get("/get/:serviceId", async (req, res) => {
   const serviceId = req.params.serviceId;
-  const manage = await getManageByServiceId(serviceId);
-  if (manage) {
-    res.json(manage);
+  const manager = await getManagerByServiceId(serviceId);
+  if (manager) {
+    res.json(manager);
   } else {
-    res.status(404).send("Manage non trouvé.");
+    res.status(404).send("Manager non trouvé.");
+  }
+});
+
+router.get("/list-managers-and-services", async (req, res) => {
+  const result = await listManagersAndServices();
+  if (result) {
+    res.json(result);
+  } else {
+    res.status(500).send("Erreur lors de la récupération des données.");
   }
 });
 

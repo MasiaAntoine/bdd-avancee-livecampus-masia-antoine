@@ -95,3 +95,13 @@ export const updateEmployee = async (
     return null;
   }
 };
+
+export const salaryGap = async () => {
+  try {
+    const res = await connexion.query("SELECT salary_gap()");
+    return res.rows[0].salary_gap;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
