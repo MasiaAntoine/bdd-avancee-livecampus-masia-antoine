@@ -1,0 +1,25 @@
+{
+  "name": "lc_adb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_ENV=dev nodemon ./src/app.js",
+    "preprod": "NODE_ENV=preprod nodemon ./src/app.js",
+    "start": "nodemon ./src/app.js",
+    "test": "NODE_ENV=dev NODE_OPTIONS='--experimental-vm-modules' jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7"
+  }
+}
